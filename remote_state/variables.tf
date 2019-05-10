@@ -13,7 +13,7 @@ variable "locking" {
   description = "Use dynamodb locking"
 }
 
-variable "prevent_destroy" {
-  default     = true
-  description = "Protect s3 backut from deleteing by terraform"
-}
+# variable "prevent_destroy" {
+#   default     = true
+#   description = "Protect s3 backut from deleteing by terraform"
+# }

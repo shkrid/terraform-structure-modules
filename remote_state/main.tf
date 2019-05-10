@@ -1,25 +1,25 @@
-resource "aws_s3_bucket" "s3-rs-protected" {
-  count = "${var.prevent_destroy ? 1 : 0}"
-  # same effect
-  # count = "${var.prevent_destroy}"
-  bucket = "${var.prefix}-remote-state-${var.env}"
+# resource "aws_s3_bucket" "rs-protected" {
+#   count = "${var.prevent_destroy ? 1 : 0}"
+#   # same effect
+#   # count = "${var.prevent_destroy}"
+#   bucket = "${var.prefix}-remote-state-${var.env}"
 
-  versioning {
-    enabled = true
-  }
+#   versioning {
+#     enabled = true
+#   }
+#   force_destroy = true
+#   tags {
+#     Name        = "${var.prefix}-remote-state-${var.env}"
+#     Environment = "${var.env}"
+#   }
 
-  tags {
-    Name        = "${var.prefix}-remote-state-${var.env}"
-    Environment = "${var.env}"
-  }
+#   lifecycle {
+#     prevent_destroy = true
+#   }
+# }
 
-  lifecycle {
-    prevent_destroy = true
-  }
-}
-
-resource "aws_s3_bucket" "s3-rs" {
-  count = "${!var.prevent_destroy ? 1 : 0}" 
+resource "aws_s3_bucket" "rs" {
+  # count = "${!var.prevent_destroy ? 1 : 0}" 
   # same effect
   # count = "${!var.prevent_destroy}"
   # count = "${1-var.prevent_destroy}"
@@ -30,13 +30,15 @@ resource "aws_s3_bucket" "s3-rs" {
     enabled = true
   }
 
+  force_destroy = true
+
   tags {
     Name        = "${var.prefix}-remote-state-${var.env}"
     Environment = "${var.env}"
   }
 }
 
-resource "aws_dynamodb_table" "dynamodb-rs" {
+resource "aws_dynamodb_table" "rs" {
   # Not working http://www.devlo.io/if-else-terraform.html
   # count = "${var.locking == true ? 1 : 0}"
   count = "${var.locking ? 1 : 0}"
