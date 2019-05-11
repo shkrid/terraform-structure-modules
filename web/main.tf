@@ -22,7 +22,7 @@ module "web_sg" {
   source = "terraform-aws-modules/security-group/aws"
 
   name   = "${var.prefix}-web-sg-${var.env}"
-  vpc_id = "${var.vps_id}"
+  vpc_id = "${var.vpc_id}"
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
   ingress_rules       = ["http-80-tcp", "all-icmp", "ssh-tcp"]
