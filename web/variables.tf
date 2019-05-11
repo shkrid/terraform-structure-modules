@@ -1,8 +1,3 @@
-variable "region" {
-  default     = "us-east-1"
-  description = "The name of the AWS region"
-}
-
 variable "prefix" {
   default     = "prefix"
   description = "The name of our org, i.e. examplecom."
@@ -17,10 +12,11 @@ variable "instance_count" {
   default = 1
 }
 
-variable "ami" {}
-
 variable "instance_type" {
   default = "t2.micro"
 }
 
+variable "ami" {}
 variable "key_name" {}
+variable "subnet_ids" {}
+variable "vpc_id" {}

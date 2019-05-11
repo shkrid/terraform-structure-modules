@@ -1,13 +1,3 @@
-data "terraform_remote_state" "vpc" {
-  backend = "s3"
-
-  config {
-    bucket = "${var.prefix}-remote-state-${var.env}"
-    key    = "${var.env}/vpc/terraform.tfstate"
-    region = "${var.region}"
-  }
-}
-
 module "web" {
   source         = "terraform-aws-modules/ec2-instance/aws"
   name           = "${var.prefix}-web-${var.env}"
@@ -18,7 +8,7 @@ module "web" {
   key_name                    = "${var.key_name}"
   monitoring                  = true
   vpc_security_group_ids      = ["${module.web_sg.this_security_group_id}"]
-  subnet_ids                  = ["${data.terraform_remote_state.vpc.public_subnets}"]
+  subnet_ids                  = ["${var.subnet_ids}"]
   associate_public_ip_address = true
 }
 
@@ -32,7 +22,7 @@ module "web_sg" {
   source = "terraform-aws-modules/security-group/aws"
 
   name   = "${var.prefix}-web-sg-${var.env}"
-  vpc_id = "${data.terraform_remote_state.vpc.vpc_id}"
+  vpc_id = "${var.vps_id}"
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
   ingress_rules       = ["http-80-tcp", "all-icmp", "ssh-tcp"]
