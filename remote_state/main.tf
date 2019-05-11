@@ -42,9 +42,11 @@ resource "aws_dynamodb_table" "rs" {
   # Not working http://www.devlo.io/if-else-terraform.html
   # count = "${var.locking == true ? 1 : 0}"
   count = "${var.locking ? 1 : 0}"
+
   # same effect
   # count = "${var.locking}"
-  name           = "${var.prefix}-remote-state-${var.env}"
+  name = "${var.prefix}-remote-state-${var.env}"
+
   hash_key       = "LockID"
   read_capacity  = 20
   write_capacity = 20

@@ -13,12 +13,12 @@ module "web" {
   name           = "${var.prefix}-web-${var.env}"
   instance_count = "${var.instance_count}"
 
-  ami                    = "${var.ami}"
-  instance_type          = "${var.instance_type}"
-  key_name               = "${var.key_name}"
-  monitoring             = true
-  vpc_security_group_ids = ["${module.web_sg.this_security_group_id}"]
-  subnet_ids             = ["${data.terraform_remote_state.vpc.public_subnets}"]
+  ami                         = "${var.ami}"
+  instance_type               = "${var.instance_type}"
+  key_name                    = "${var.key_name}"
+  monitoring                  = true
+  vpc_security_group_ids      = ["${module.web_sg.this_security_group_id}"]
+  subnet_ids                  = ["${data.terraform_remote_state.vpc.public_subnets}"]
   associate_public_ip_address = true
 }
 
