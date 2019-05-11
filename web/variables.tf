@@ -16,7 +16,10 @@ variable "instance_type" {
   default = "t2.micro"
 }
 
+variable "subnet_ids" {
+	type = "list"
+}
+
 variable "ami" {}
 variable "key_name" {}
-variable "subnet_ids" {}
 variable "vpc_id" {}
