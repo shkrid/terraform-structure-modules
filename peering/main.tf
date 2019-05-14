@@ -25,11 +25,13 @@ data "aws_route_tables" "dst_rtbs" {
 }
 
 data "aws_vpc" "src" {
-  id = "${var.vpc_id}"
+  provider = "aws.src"
+  id       = "${var.vpc_id}"
 }
 
 data "aws_vpc" "dst" {
-  id = "${var.peer_vpc_id}"
+  provider = "aws.dst"
+  id       = "${var.peer_vpc_id}"
 }
 
 resource "aws_vpc_peering_connection" "src" {

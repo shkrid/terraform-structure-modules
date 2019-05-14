@@ -17,7 +17,7 @@ variable "instance_type" {
 }
 
 variable "subnet_ids" {
-	type = "list"
+  type = "list"
 }
 
 variable "ami" {}
